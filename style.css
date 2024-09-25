@@ -1,23 +1,23 @@
-/* Maintain 9:16 aspect ratio and make the ad responsive */
+/* Make sure the body and html fill the screen, with no margins or padding */
 body, html {
     margin: 0;
     padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black; /* Black bars for extra space */
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: black;
-    width: 100vw;
-    height: 100vh;
+    overflow: hidden; /* Hide anything that overflows */
 }
 
+/* Wrapper that forces the 9:16 aspect ratio and centers the content */
 #aspect-ratio-wrapper {
     position: relative;
-    /* Use the smaller dimension (either width or height) to maintain aspect ratio */
-    width: 100vw;
-    height: calc(100vw * 16 / 9);
-    max-height: 100vh;
-    max-width: calc(100vh * 9 / 16);
-    overflow: hidden;
+    height: 100vh; /* Fit the full height of the viewport */
+    width: calc(100vh * 9 / 16); /* Calculate width based on 9:16 aspect ratio */
+    background-color: black; /* Keep black bars on the sides if necessary */
+    overflow: hidden; /* Hide anything outside the wrapper */
 }
 
 #container {
@@ -26,6 +26,7 @@ body, html {
     height: 100%;
 }
 
+/* Full background image */
 #bg {
     position: absolute;
     top: 0;
@@ -35,42 +36,48 @@ body, html {
     object-fit: cover;
 }
 
+/* The roulette container is now centered and scaled to fit inside the aspect-ratio wrapper */
 #roulette-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80.0%; /* Scaling by 2.5x */
-    height: auto; /* Maintain aspect ratio */
-    aspect-ratio: 1 / 1; /* Ensures it's a perfect square */
+    height: 60%; /* Scale the roulette based on height */
+    width: auto; /* Automatically calculate width to maintain square shape */
+    aspect-ratio: 1 / 1; /* Maintain the square ratio for the roulette */
 }
 
 #roulette {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Ensures no distortion */
+    object-fit: contain; /* Prevent any distortion */
     transition: transform 2s ease-out;
 }
 
+/* Indicator remains on top of the background and matches its size */
 #indicator {
     position: absolute;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 12%; /* Adjust size proportionally */
-    z-index: 10;
+    left: 0;
+    width: 100%; /* Match the width of the background */
+    height: 100%; /* Match the height of the background */
+    z-index: 10; /* Make sure it's above the background */
+    transform: translateY(-25%); /* Move the indicator up by 50% */
+    pointer-events: none; /* Disable interaction so it doesn't block the spin button */
 }
 
+/* Spin button scaled up to be more prominent */
 #spin-btn {
     position: absolute;
     bottom: 15%;
     left: 50%;
     transform: translateX(-50%);
-    width: 20%;
+    width: 60%; /* Scale up the spin button */
     cursor: pointer;
     z-index: 5;
 }
 
+/* Endcard container with download button */
 #endcard {
     position: absolute;
     top: 0;
@@ -94,7 +101,7 @@ body, html {
     animation: pulse 1.5s infinite;
     cursor: pointer;
     position: absolute;
-    bottom: 15%; /* Same position as spin button */
+    bottom: 15%; /* Same position as the spin button */
     left: 50%;
     transform: translateX(-50%);
 }
