@@ -1,33 +1,32 @@
-/* Make sure the body and html fill the screen with no extra padding or margins */
+/* Body and HTML */
 body, html {
     margin: 0;
     padding: 0;
     width: 100vw;
     height: 100vh;
-    background-color: black; /* Black background for extra space */
+    background-color: black;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Hide anything that overflows */
+    overflow: hidden;
 }
 
-/* Wrapper that forces the 9:16 aspect ratio */
+/* Aspect Ratio Wrapper */
 #aspect-ratio-wrapper {
     position: relative;
-    height: 100vh; /* Full height of the viewport */
-    width: calc(100vh * 9 / 16); /* Maintain a 9:16 aspect ratio */
+    height: 100vh;
+    width: calc(100vh * 9 / 16);
     background-color: black;
-    overflow: hidden; /* Hide anything outside the wrapper */
+    overflow: hidden;
 }
 
 #container {
     position: relative;
     width: 100%;
     height: 100%;
-    overflow: hidden; /* Ensure content does not overflow */
 }
 
-/* Full background image */
+/* Background */
 #bg {
     position: absolute;
     top: 0;
@@ -37,15 +36,15 @@ body, html {
     object-fit: cover;
 }
 
-/* Roulette container centered and scaled */
+/* Roulette */
 #roulette-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 55%; /* Adjust based on your needs */
+    height: 55%;
     width: auto;
-    aspect-ratio: 1 / 1; /* Maintain square shape */
+    aspect-ratio: 1 / 1;
 }
 
 #roulette {
@@ -55,7 +54,7 @@ body, html {
     transition: transform 2s ease-out;
 }
 
-/* Indicator that overlays exactly on the background */
+/* Indicator */
 #indicator {
     position: absolute;
     top: -23%;
@@ -63,10 +62,20 @@ body, html {
     width: 100%;
     height: 100%;
     z-index: 10;
-    pointer-events: none; /* Disable interaction to avoid blocking clicks */
+    pointer-events: none;
 }
 
-/* Define the pulsating animation in a class */
+/* Spin Button */
+#spin-btn {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    cursor: pointer;
+    z-index: 5;
+}
+
 .pulsating {
     animation: pulse 1.5s infinite;
 }
@@ -83,52 +92,35 @@ body, html {
     }
 }
 
-/* Spin button */
-#spin-btn {
-    position: absolute;
-    bottom: 5%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
-    cursor: pointer;
-    z-index: 5;
-}
-
-/* Hand image initial position and scale */
+/* Hand Image */
 #hand {
     position: absolute;
-    bottom: -600px; /* Start fully off-screen below the visible area */
-    left: 170%; /* 20% to the right from the center */
-    transform: translateX(-50%) scale(0.25); /* Scale down to 25% */
-    transform-origin: top left; /* Anchor point in the center */
-    opacity: 1; /* Fully visible initially */
-    z-index: 20; /* Ensure it's on top of the spin button */
-    pointer-events: none; /* Disable interaction so it doesn't block clicks */
+    bottom: -600px;
+    left: 170%;
+    transform: translateX(-50%) scale(0.25);
+    transform-origin: top left;
+    opacity: 1;
+    z-index: 20;
+    pointer-events: none;
 }
 
-/* Animation for hand moving vertically up from bottom to spin button */
 @keyframes hand-move {
     0% {
-        bottom: -500px; /* Start fully off-screen */
+        bottom: -500px;
         opacity: 1;
     }
     50% {
-        bottom: 0.5; /* Move up to the final position */
+        bottom: 0.5;
         opacity: 1;
     }
-    75% {
-        bottom: 0.5; /* Stay in the final position */
-        opacity: 1; /* Fully visible */
-    }
     100% {
-        bottom: 0.5; /* Stay in the final position */
-        opacity: 0; /* Fade out */
+        bottom: 0.5;
+        opacity: 0;
     }
 }
 
-/* Apply the animation */
 .hand-animate {
-    animation: hand-move 2s ease-in-out forwards; /* Total duration is 4 seconds */
+    animation: hand-move 2s ease-in-out forwards;
 }
 
 /* Black overlay */
@@ -138,29 +130,23 @@ body, html {
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0; /* Start invisible */
-    z-index: 99; /* Just above background and content */
-    pointer-events: none; /* Ensure it doesn't block interaction */
-    transition: opacity 0.5s ease-in-out; /* Smooth fade-in */
-    display: block;
-    object-fit: cover; /* Ensure it fills the canvas */
-}
-/* Fade-in animation for black overlay */
-.fade-in-overlay {
-    opacity: 0.8;
+    z-index: 99;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
 }
 
-/* CTA Container to keep aspect ratio and margins */
+/* CTA Container */
 #cta-container {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: calc(100% - 40px); /* 20px margin on left and right */
+    width: calc(100% - 40px); /* Maintain margins */
     max-width: calc(100% - 40px);
     height: 0;
     padding-bottom: 100%; /* Maintain 1:1 aspect ratio */
     transform: translate(-50%, -50%);
-    z-index: 101;
+    z-index: 101; /* Ensure it's above the black overlay */
     pointer-events: none;
 }
 
@@ -174,50 +160,29 @@ body, html {
     transform: scale(0); /* Start hidden */
     transform-origin: center;
     opacity: 1;
+    transition: transform 0.5s ease-in-out; /* Smooth scaling */
 }
 
-/* Scale up animation */
-@keyframes scaleUp {
-    0% {
-        transform: scale(0);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
+/* Class to scale up CTA */
 .scale-up-cta {
-    animation: scaleUp 0.5s ease-in-out forwards;
+    transform: scale(1); /* Full size */
 }
 
-/* Download button */
+
+/* Download Button */
 #download-btn {
     position: absolute;
-    bottom: 20px; /* 20px margin from the bottom */
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    cursor: pointer;
     z-index: 102;
-    opacity: 0; /* Start invisible */
-    pointer-events: none; /* Not clickable when hidden */
-    animation: pulse 1.5s infinite;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease-in-out;
 }
 
-.fade-in-download {
-    opacity: 1; /* Make it visible */
-    pointer-events: auto; /* Make it clickable */
-    transition: opacity 0.5s ease-in-out, pointer-events 0s 0.5s; /* Pointer-events only after fade-in */
-}
-
-/* Pulsating effect */
-@keyframes pulse {
-    0% {
-        transform: translateX(-50%) scale(1);
-    }
-    50% {
-        transform: translateX(-50%) scale(1.1);
-    }
-    100% {
-        transform: translateX(-50%) scale(1);
-    }
+.visible-download {
+    opacity: 1;
+    pointer-events: auto;
 }
