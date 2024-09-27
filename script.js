@@ -22,48 +22,31 @@ function spinRoulette() {
     const randomDegrees = Math.floor(Math.random() * (2880 - 1440 + 1)) + 1440;
     roulette.style.transform = `rotate(${randomDegrees}deg)`;
 
-    // After 2 seconds of spinning, leave the result visible for 1 second before showing the black overlay
+    // After 2 seconds of spinning, leave the result visible for 2 seconds before showing the endcard
     setTimeout(() => {
-        showBlackOverlay(); // Show the black overlay after 1 second
+        setTimeout(() => {
+            showEndcard();
+        }, 2000); // 2-second delay after spinning stops
     }, 2000); // 2-second spinning time
 }
 
-function showBlackOverlay() {
+function showEndcard() {
     const blackOverlay = document.getElementById('black-overlay');
-    
-    // Ensure black overlay exists
-    if (blackOverlay) {
-        console.log("Adding fade-in-overlay class to black overlay.");
-        blackOverlay.classList.add('fade-in-overlay'); // Fade in to 80% opacity
-    } else {
-        console.log("Black overlay not found!");
-    }
-
-    // After the black overlay has faded in, scale up the CTA
-    setTimeout(() => {
-        showCTA();
-    }, 500); // Wait 0.5 seconds for the black overlay to fade in
-}
-
-function showCTA() {
     const ctaContainer = document.getElementById('cta-container');
     const downloadBtn = document.getElementById('download-btn');
 
-    // Ensure the CTA container exists
-    if (ctaContainer) {
-        ctaContainer.querySelector('#cta-img').classList.add('scale-up-cta');
-    } else {
-        console.log("CTA container not found!");
-    }
+    // Fade in the black overlay to 80% opacity
+    blackOverlay.classList.add('fade-in-overlay');
 
-    // After the CTA has finished scaling up, show the download button
+    // Scale up the CTA image after the black overlay fades in
     setTimeout(() => {
-        if (downloadBtn) {
+        ctaContainer.querySelector('#cta-img').classList.add('scale-up-cta');
+
+        // After CTA has finished scaling up (0.5s), show the download button
+        setTimeout(() => {
             downloadBtn.classList.add('fade-in-download'); // Fade in the download button
-        } else {
-            console.log("Download button not found!");
-        }
-    }, 500); // Wait 0.5 seconds for the CTA to fully scale
+        }, 500); // Wait 0.5 seconds for the CTA to fully scale
+    }, 1000); // Wait 1 second for the black overlay to fade in
 }
 
 function setupEventListeners() {
