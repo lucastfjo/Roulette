@@ -26,7 +26,7 @@ function spinRoulette() {
     setTimeout(() => {
         setTimeout(() => {
             showEndcard();
-        }, 2000); // 2-second delay after spinning stops
+        }, 1000); // 2-second delay after spinning stops
     }, 2000); // 2-second spinning time
 }
 

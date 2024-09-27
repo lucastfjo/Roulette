@@ -194,10 +194,10 @@ body, html {
 /* Download button styling */
 #download-btn {
     position: absolute;
-    bottom: 20px;
+    bottom: -100px;
     left: 50%;
     transform: translateX(-50%);
-    width: 30%; /* Adjust size as needed */
+    width: 60%; /* Change this from 30% to 60% */
     cursor: pointer;
     z-index: 102; /* Above the CTA */
     opacity: 1;
