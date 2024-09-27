@@ -1,5 +1,12 @@
 let isSpinning = false;
 
+function startHandAnimation() {
+    const hand = document.getElementById('hand');
+    if (hand) {
+        hand.classList.add('hand-animate'); // Trigger hand animation
+    }
+}
+
 function spinRoulette() {
     if (isSpinning) return;
 
@@ -7,16 +14,15 @@ function spinRoulette() {
     const roulette = document.getElementById('roulette');
     const spinBtn = document.getElementById('spin-btn');
 
-    // Disable the spin button
+    // Disable spin button to prevent multiple clicks
+    spinBtn.classList.remove('pulsating');
     spinBtn.style.pointerEvents = 'none';
 
-    // Random angle between 1440 to 2880 degrees (4 to 8 full spins)
+    // Random angle for roulette
     const randomDegrees = Math.floor(Math.random() * (2880 - 1440 + 1)) + 1440;
-
-    // Start rotating the roulette
     roulette.style.transform = `rotate(${randomDegrees}deg)`;
 
-    // After 2 seconds of spinning, leave the result visible for 2 seconds before showing the end card
+    // After 2 seconds of spinning, leave the result visible for 2 seconds before showing the endcard
     setTimeout(() => {
         setTimeout(() => {
             showEndcard();
@@ -25,17 +31,24 @@ function spinRoulette() {
 }
 
 function showEndcard() {
-    const endcard = document.getElementById('endcard');
-    const spinBtn = document.getElementById('spin-btn');
+    const blackOverlay = document.getElementById('black-overlay');
+    const ctaContainer = document.getElementById('cta-container');
     const downloadBtn = document.getElementById('download-btn');
 
-    // Hide spin button and show endcard and download button
-    spinBtn.style.display = 'none';
-    endcard.style.display = 'flex';
-    downloadBtn.style.display = 'block';
+    // Fade in the black overlay to 80% opacity
+    blackOverlay.classList.add('fade-in-overlay');
+
+    // Scale up the CTA image after the black overlay fades in
+    setTimeout(() => {
+        ctaContainer.querySelector('#cta-img').classList.add('scale-up-cta');
+
+        // After CTA has finished scaling up (0.5s), show the download button
+        setTimeout(() => {
+            downloadBtn.classList.add('fade-in-download'); // Fade in the download button
+        }, 500); // Wait 0.5 seconds for the CTA to fully scale
+    }, 1000); // Wait 1 second for the black overlay to fade in
 }
 
-// Add event listeners for both mouse click and touch
 function setupEventListeners() {
     const spinBtn = document.getElementById('spin-btn');
 
@@ -44,9 +57,10 @@ function setupEventListeners() {
 
     // For touch devices
     spinBtn.addEventListener('touchstart', spinRoulette, { passive: true });
+
+    // Start the hand animation on page load
+    startHandAnimation();
 }
 
 // Ensure the DOM is fully loaded before setting up event listeners
 document.addEventListener('DOMContentLoaded', setupEventListeners);
-
-//gitcommitairport
