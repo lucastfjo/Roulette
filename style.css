@@ -190,34 +190,4 @@ body, html {
     animation: scaleUp 0.5s ease-in-out forwards;
 }
 
-/* Download button */
-#download-btn {
-    position: absolute;
-    bottom: 20px; /* 20px margin from the bottom */
-    left: 50%;
-    transform: translateX(-50%);
-    cursor: pointer;
-    z-index: 102;
-    opacity: 0; /* Start invisible */
-    pointer-events: none; /* Not clickable when hidden */
-    animation: pulse 1.5s infinite;
-}
 
-.fade-in-download {
-    opacity: 1; /* Make it visible */
-    pointer-events: auto; /* Make it clickable */
-    transition: opacity 0.5s ease-in-out, pointer-events 0s 0.5s; /* Pointer-events only after fade-in */
-}
-
-/* Pulsating effect */
-@keyframes pulse {
-    0% {
-        transform: translateX(-50%) scale(1);
-    }
-    50% {
-        transform: translateX(-50%) scale(1.1);
-    }
-    100% {
-        transform: translateX(-50%) scale(1);
-    }
-}
