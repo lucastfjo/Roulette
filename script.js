@@ -35,8 +35,8 @@ function showEndcard() {
     const ctaContainer = document.getElementById('cta-container');
     const downloadBtn = document.getElementById('download-btn');
 
-    // Fade in the black overlay to 80% opacity
-    blackOverlay.classList.add('fade-in-overlay');
+    // Fade in the BLACK.png overlay to 80% opacity
+    blackOverlay.style.opacity = '0.8';
 
     // Scale up the CTA image after the black overlay fades in
     setTimeout(() => {

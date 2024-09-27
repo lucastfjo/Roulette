@@ -83,7 +83,7 @@ body, html {
     }
 }
 
-/* Basic spin button without animation */
+/* Spin button */
 #spin-btn {
     position: absolute;
     bottom: 5%;
@@ -138,13 +138,13 @@ body, html {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: black;
     opacity: 0; /* Start invisible */
-    z-index: 99;
-    transition: opacity 0.5s ease-in-out;
-    pointer-events: none;
+    z-index: 99; /* Just above background and content */
+    pointer-events: none; /* Ensure it doesn't block interaction */
+    transition: opacity 0.5s ease-in-out; /* Smooth fade-in */
+    display: block;
+    object-fit: cover; /* Ensure it fills the canvas */
 }
-
 /* Fade-in animation for black overlay */
 .fade-in-overlay {
     opacity: 0.8;
