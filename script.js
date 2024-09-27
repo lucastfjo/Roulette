@@ -41,8 +41,21 @@ function showEndcard() {
     // Scale up the CTA image after the black overlay fades in
     setTimeout(() => {
         ctaContainer.querySelector('#cta-img').classList.add('scale-up-cta');
+        
+        // Show the download button and make it pulsate after CTA is done scaling up
+        setTimeout(() => {
+            downloadBtn.style.display = 'block';
+            downloadBtn.classList.add('pulsating-download');
+            downloadBtn.style.pointerEvents = 'auto'; // Enable interaction
+
+            // Add event listener for download button click
+            downloadBtn.addEventListener('click', function() {
+                window.open('https://your-link-here.com', '_blank');
+            });
+        }, 500); // Delay to ensure the CTA scaling completes
     }, 1000); // Wait 1 second for the black overlay to fade in
 }
+
 
 function setupEventListeners() {
     const spinBtn = document.getElementById('spin-btn');
