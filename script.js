@@ -42,14 +42,9 @@ function showEndcard() {
     setTimeout(() => {
         ctaContainer.querySelector('#cta-img').classList.add('scale-up-cta');
 
-        // Log to check if CTA scales up and Download button is being referenced
-        console.log("CTA is scaling up...");
-        console.log("Attempting to show download button...");
-
         // After CTA has finished scaling up (0.5s), show the download button
         setTimeout(() => {
             downloadBtn.classList.add('fade-in-download'); // Fade in the download button
-            console.log(downloadBtn); // Log the download button to confirm it is being selected
         }, 500); // Wait 0.5 seconds for the CTA to fully scale
     }, 1000); // Wait 1 second for the black overlay to fade in
 }
