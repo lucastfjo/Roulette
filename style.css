@@ -34,6 +34,7 @@ body, html {
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 8;
     object-fit: cover;
 }
 
@@ -53,6 +54,7 @@ body, html {
     height: 100%;
     object-fit: contain;
     transition: transform 2s ease-out;
+    z-index: 10;
 }
 
 /* Indicator that overlays exactly on the background */
@@ -62,7 +64,7 @@ body, html {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 10;
+    z-index: 12;
     pointer-events: none; /* Disable interaction to avoid blocking clicks */
 }
 
@@ -91,44 +93,39 @@ body, html {
     transform: translateX(-50%);
     width: 60%;
     cursor: pointer;
-    z-index: 5;
+    z-index: 15;
 }
 
 /* Hand image initial position and scale */
 #hand {
     position: absolute;
     bottom: -600px; /* Start fully off-screen below the visible area */
-    left: 170%; /* 20% to the right from the center */
+    left: 50%;
     transform: translateX(-50%) scale(0.25); /* Scale down to 25% */
-    transform-origin: top left; /* Anchor point in the center */
     opacity: 1; /* Fully visible initially */
     z-index: 20; /* Ensure it's on top of the spin button */
     pointer-events: none; /* Disable interaction so it doesn't block clicks */
 }
 
-/* Animation for hand moving vertically up from bottom to spin button */
+/* Hand animation - restored */
 @keyframes hand-move {
     0% {
-        bottom: -500px; /* Start fully off-screen */
+        bottom: -500px;
         opacity: 1;
     }
     50% {
-        bottom: 0.5; /* Move up to the final position */
+        bottom: 5%;
         opacity: 1;
     }
-    75% {
-        bottom: 0.5; /* Stay in the final position */
-        opacity: 1; /* Fully visible */
-    }
     100% {
-        bottom: 0.5; /* Stay in the final position */
-        opacity: 0; /* Fade out */
+        bottom: 5%;
+        opacity: 0;
     }
 }
 
-/* Apply the animation */
+/* Apply the hand animation */
 .hand-animate {
-    animation: hand-move 2s ease-in-out forwards; /* Total duration is 4 seconds */
+    animation: hand-move 2s ease-in-out forwards;
 }
 
 /* Black overlay */
@@ -139,7 +136,7 @@ body, html {
     width: 100%;
     height: 100%;
     opacity: 0; /* Start invisible */
-    z-index: 99; /* Just above background and content */
+    z-index: 25; /* Just above background and content */
     pointer-events: none; /* Ensure it doesn't block interaction */
     transition: opacity 0.5s ease-in-out; /* Smooth fade-in */
     display: block;
@@ -160,7 +157,7 @@ body, html {
     height: 0;
     padding-bottom: 100%; /* Maintain 1:1 aspect ratio */
     transform: translate(-50%, -50%);
-    z-index: 101;
+    z-index: 30;
     pointer-events: none;
 }
 
@@ -173,6 +170,7 @@ body, html {
     height: 100%;
     transform: scale(0); /* Start hidden */
     transform-origin: center;
+    z-index: inherit;
     opacity: 1;
 }
 
@@ -197,7 +195,7 @@ body, html {
     left: 50%;
     transform: translateX(-50%);
     cursor: pointer;
-    z-index: 102;
+    z-index: 35; /* Raised to ensure it's above other elements */
     opacity: 0; /* Start invisible */
     pointer-events: none; /* Not clickable when hidden */
     animation: pulse 1.5s infinite;
