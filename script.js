@@ -3,9 +3,10 @@ let isSpinning = false;
 function startHandAnimation() {
     const hand = document.getElementById('hand');
     if (hand) {
-        hand.classList.add('hand-animate'); // Trigger hand animation
+        hand.classList.add('pulsating-hand'); // Trigger hand pulsating animation
     }
 }
+
 
 function spinRoulette() {
     if (isSpinning) return;
