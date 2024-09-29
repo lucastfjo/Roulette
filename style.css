@@ -197,7 +197,7 @@ body, html {
     bottom: -100px;
     left: 50%;
     transform: translateX(-50%);
-    width: 60%; /* Change this from 30% to 60% */
+    width: 75%; /* Change this from 30% to 60% */
     cursor: pointer;
     z-index: 102; /* Above the CTA */
     opacity: 1;
