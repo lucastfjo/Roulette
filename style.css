@@ -43,7 +43,7 @@ body, html {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 55%; /* Adjust based on your needs */
+    height: 50%; /* Adjust based on your needs */
     width: auto;
     aspect-ratio: 1 / 1; /* Maintain square shape */
 }
@@ -81,7 +81,7 @@ body, html {
 #hand {
     position: absolute;
     bottom: -70px; /* Start fully off-screen below the visible area */
-    left: 80%; /* 20% to the right from the center */
+    left: 75%; /* 20% to the right from the center */
     transform: translateX(-50%) scale(0.35); /* Scale down to 35% initially */
     transform-origin: center; /* Anchor point in the center */
     opacity: 1; /* Fully visible initially */
@@ -127,6 +127,15 @@ body, html {
     opacity: 0.8;
 }
 
+#gift-card-container {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center align */
+    z-index: 101; /* Ensure it’s above other elements */
+    display: none; /* Initially hide if you create a container */
+}
+
 /* CTA Container to keep aspect ratio and margins */
 #cta-container {
     position: absolute;
@@ -170,30 +179,31 @@ body, html {
 /* Download button styling */
 #download-btn {
     position: absolute;
-    bottom: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 75%; /* Change this from 30% to 60% */
+    bottom: -185px; /* Adjust this value as needed */
+    left: 30%; /* Center horizontally */
+    width: 100%; /* Adjust width as needed */
     cursor: pointer;
     z-index: 102; /* Above the CTA */
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
     pointer-events: none; /* Disable interaction initially */
+    transform-origin: center;
 }
 
 /* Pulsating animation for download button */
 @keyframes pulse-download {
     0% {
-        transform: translateX(-50%) scale(1);
+        transform: translateX(-50%) scale(0.35); /* Scale down */
     }
     50% {
-        transform: translateX(-50%) scale(1.1);
+        transform: translateX(-50%) scale(0.4); /* Scale up */
     }
     100% {
-        transform: translateX(-50%) scale(1);
+        transform: translateX(-50%) scale(0.35); /* Scale down */
     }
 }
 
 .pulsating-download {
     animation: pulse-download 1.5s infinite;
+    transform-origin: center; /* Ensure the scaling is centered */
 }
