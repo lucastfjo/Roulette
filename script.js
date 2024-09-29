@@ -14,10 +14,14 @@ function spinRoulette() {
     isSpinning = true;
     const roulette = document.getElementById('roulette');
     const spinBtn = document.getElementById('spin-btn');
+    const hand = document.getElementById('hand'); // Get the hand element
 
     // Disable spin button to prevent multiple clicks
     spinBtn.classList.remove('pulsating');
     spinBtn.style.pointerEvents = 'none';
+
+    // Make the hand image disappear instantly
+    hand.style.display = 'none'; // Set display to none to hide it
 
     // Random angle for roulette
     const randomDegrees = Math.floor(Math.random() * (2880 - 1440 + 1)) + 1440;
@@ -27,7 +31,7 @@ function spinRoulette() {
     setTimeout(() => {
         setTimeout(() => {
             showEndcard();
-        }, 1000); // 2-second delay after spinning stops
+        }, 1000); // 1-second delay after spinning stops
     }, 2000); // 2-second spinning time
 }
 
