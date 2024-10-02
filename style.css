@@ -208,3 +208,21 @@ body, html {
     animation: pulse-download 1.5s infinite;
     transform-origin: center; /* Ensure the scaling is centered */
 }
+/* Bounce animation */
+@keyframes bounce {
+    0% {
+        transform: translate(-50%, 0) scale(0.35); /* Keep original X position and scale */
+    }
+    50% {
+        transform: translate(-50%, -10px) scale(0.35); /* Move up while keeping X position */
+    }
+    100% {
+        transform: translate(-50%, 0) scale(0.35); /* Return to original position while keeping X position */
+    }
+}
+
+/* Class to apply bounce animation */
+.bouncing {
+    animation: bounce 0.5s ease-in-out infinite; /* Loop infinitely */
+    will-change: transform; /* Hint to the browser to optimize for transform changes */
+}

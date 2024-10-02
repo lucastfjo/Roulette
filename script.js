@@ -113,6 +113,30 @@ function showEndcard(finalDegrees) { // Accept finalDegrees as a parameter
     }, 2000); // Display the gift card for 2 seconds
 }
 
+function smoothSlide(element, startY, endY, duration) {
+    const startTime = performance.now(); // Record the start time
+
+    function animate(time) {
+        const elapsedTime = time - startTime; // Calculate elapsed time
+        const t = Math.min(elapsedTime / duration, 1); // Normalize to [0, 1]
+        
+        // Lerp function to calculate the current Y position
+        const currentY = startY + (endY - startY) * t; // Linear interpolation
+
+        element.style.bottom = currentY + 'px'; // Update the position
+
+        if (t < 1) {
+            requestAnimationFrame(animate); // Continue animation until t reaches 1
+        } else {
+            // Add bounce effect after sliding up
+            element.classList.add('bouncing'); // Apply the bounce class
+        }
+    }
+
+    requestAnimationFrame(animate); // Start the animation
+}
+
+
 
 function startHandAnimation() {
     const hand = document.getElementById('hand');
