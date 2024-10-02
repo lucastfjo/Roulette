@@ -49,10 +49,31 @@ function spinRoulette() {
 }
 
 
+function smoothSlide(element, startY, endY, duration) {
+    const startTime = performance.now(); // Record the start time
+
+    function animate(time) {
+        const elapsedTime = time - startTime; // Calculate elapsed time
+        const t = Math.min(elapsedTime / duration, 1); // Normalize to [0, 1]
+        
+        // Lerp function to calculate the current Y position
+        const currentY = startY + (endY - startY) * t; // Linear interpolation
+
+        element.style.bottom = currentY + 'px'; // Update the position
+
+        if (t < 1) {
+            requestAnimationFrame(animate); // Continue animation until t reaches 1
+        }
+    }
+
+    requestAnimationFrame(animate); // Start the animation
+}
+
 function showEndcard(finalDegrees) { // Accept finalDegrees as a parameter
     const blackOverlay = document.getElementById('black-overlay');
     const ctaContainer = document.getElementById('cta-container');
     const downloadBtn = document.getElementById('download-btn');
+    const hand = document.getElementById('hand'); // Get the hand element
 
     // Fade in the BLACK.png overlay to 80% opacity
     blackOverlay.style.opacity = '0.8';
@@ -81,8 +102,17 @@ function showEndcard(finalDegrees) { // Accept finalDegrees as a parameter
         downloadBtn.style.display = 'block'; // Make it visible
         downloadBtn.classList.add('pulsating-download'); // Add pulsating effect
         downloadBtn.style.pointerEvents = 'auto'; // Enable interaction
+
+        // Show HAND.png, remove pulsating class, set its z-index
+        hand.style.display = 'block'; // Make HAND visible
+        hand.classList.remove('pulsating-hand'); // Remove pulsating animation class
+        hand.style.zIndex = '104'; // Ensure HAND is on top of DOWNLOAD.png
+        
+        // Animate HAND sliding up smoothly
+        smoothSlide(hand, -200, -70, 500); // Start from -50px to 40px over 500ms
     }, 2000); // Display the gift card for 2 seconds
 }
+
 
 function startHandAnimation() {
     const hand = document.getElementById('hand');
