@@ -1,32 +1,33 @@
-/* Global styles */
+/* Make sure the body and html fill the screen with no extra padding or margins */
 body, html {
     margin: 0;
     padding: 0;
     width: 100vw;
     height: 100vh;
-    background-color: black;
+    background-color: black; /* Black background for extra space */
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; 
+    overflow: hidden; /* Hide anything that overflows */
 }
 
-/* Aspect ratio wrapper */
+/* Wrapper that forces the 9:16 aspect ratio */
 #aspect-ratio-wrapper {
     position: relative;
-    height: 100vh;
-    width: 100%; /* Full width */
+    height: 100vh; /* Full height of the viewport */
+    width: calc(100vh * 9 / 16); /* Maintain a 9:16 aspect ratio */
     background-color: black;
+    overflow: hidden; /* Hide anything outside the wrapper */
 }
 
-/* Responsive container */
 #container {
     position: relative;
     width: 100%;
     height: 100%;
+    overflow: hidden; /* Ensure content does not overflow */
 }
 
-/* Background images */
+/* Full background image */
 #bg {
     position: absolute;
     top: 0;
@@ -36,17 +37,36 @@ body, html {
     object-fit: cover;
 }
 
-/* 9:16 Layout Styles */
+/* Roulette container centered and scaled */
 #roulette-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 50%; /* Maintain aspect ratio */
+    height: 50%; /* Adjust based on your needs */
     width: auto;
-    aspect-ratio: 1 / 1; 
+    aspect-ratio: 1 / 1; /* Maintain square shape */
 }
 
+#roulette {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 2s ease-out;
+}
+
+/* Indicator that overlays exactly on the background */
+#indicator {
+    position: absolute;
+    top: -23%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none; /* Disable interaction to avoid blocking clicks */
+}
+
+/* Spin button */
 #spin-btn {
     position: absolute;
     bottom: 10%;
@@ -57,70 +77,152 @@ body, html {
     z-index: 5;
 }
 
+/* Hand image initial position and scale */
 #hand {
     position: absolute;
-    bottom: -70px; 
-    left: 75%; 
-    transform: translateX(-50%) scale(0.35);
-    opacity: 1;
-    z-index: 20; 
-    pointer-events: none; 
+    bottom: -70px; /* Start fully off-screen below the visible area */
+    left: 75%; /* 20% to the right from the center */
+    transform: translateX(-50%) scale(0.35); /* Scale down to 35% initially */
+    transform-origin: center; /* Anchor point in the center */
+    opacity: 1; /* Fully visible initially */
+    z-index: 20; /* Ensure it's on top of the spin button */
+    pointer-events: none; /* Disable interaction so it doesn't block clicks */
 }
 
-/* 16:9 Layout Styles */
-@media (min-aspect-ratio: 16/9) {
-    #bg {
-        content: url('BG_16x9.png'); /* Replace background */
-    }
+/* Apply pulsating animation to the hand */
+.pulsating-hand {
+    animation: pulse 1.5s infinite; /* Keep this to apply the pulsating effect */
+}
 
-    #roulette-container {
-        position: absolute;
-        top: 50%;
-        left: 25%; /* Align roulette to the left */
-        transform: translate(-50%, -50%); /* Center vertically */
+/* Keyframes for pulsating animation */
+@keyframes pulse {
+    0% {
+        transform: translateX(-50%) scale(0.35); /* Start at 35% size */
     }
-
-    #spin-btn {
-        position: absolute;
-        bottom: 10%;
-        left: 75%; /* Align spin button to the right */
-        transform: translateX(-50%);
-        width: 60%; /* Adjust width as needed */
+    50% {
+        transform: translateX(-50%) scale(0.45); /* Scale up slightly */
     }
-
-    #hand {
-        position: absolute;
-        bottom: -70px;
-        left: 75%; 
-        transform: translateX(-50%) scale(0.35); 
-        opacity: 1; 
-        z-index: 20; 
-        pointer-events: none; 
+    100% {
+        transform: translateX(-50%) scale(0.35); /* Return to the original size */
     }
 }
 
-/* Additional styles for elements like overlays, CTAs, etc. */
+/* Black overlay */
 #black-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0;
-    z-index: 99;
-    pointer-events: none; 
-    transition: opacity 0.5s ease-in-out;
+    opacity: 0; /* Start invisible */
+    z-index: 99; /* Just above background and content */
+    pointer-events: none; /* Ensure it doesn't block interaction */
+    transition: opacity 0.5s ease-in-out; /* Smooth fade-in */
+    display: block;
+    object-fit: cover; /* Ensure it fills the canvas */
 }
 
+/* Fade-in animation for black overlay */
+.fade-in-overlay {
+    opacity: 0.8;
+}
+
+#gift-card-container {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center align */
+    z-index: 101; /* Ensure it’s above other elements */
+    display: none; /* Initially hide if you create a container */
+}
+
+/* CTA Container to keep aspect ratio and margins */
 #cta-container {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: calc(100% - 40px); 
+    width: calc(100% - 40px); /* 20px margin on left and right */
     max-width: calc(100% - 40px);
     height: 0;
-    padding-bottom: 100%; 
+    padding-bottom: 100%; /* Maintain 1:1 aspect ratio */
     transform: translate(-50%, -50%);
     z-index: 101;
     pointer-events: none;
+}
+
+#cta-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: 100%; /* Ensure it does not exceed the width */
+    height: auto; /* Keep the original aspect ratio */
+    transform: scale(0); /* Start hidden */
+    transform-origin: center;
+    opacity: 1;
+}
+
+/* Scale up animation */
+@keyframes scaleUp {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.scale-up-cta {
+    animation: scaleUp 0.5s ease-in-out forwards;
+}
+
+/* Download button styling */
+#download-btn {
+    position: absolute;
+    bottom: -185px; /* Adjust this value as needed */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Shift back by 50% of its width */
+    width: auto; /* Allow the button to keep its original width */
+    height: auto; /* Allow the button to keep its original height */
+    cursor: pointer;
+    z-index: 102; /* Above the CTA */
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none; /* Disable interaction initially */
+    transform-origin: center; /* Ensure scaling is centered */
+}
+
+/* Pulsating animation for download button */
+@keyframes pulse-download {
+    0% {
+        transform: translateX(-50%) scale(0.35); /* Scale down */
+    }
+    50% {
+        transform: translateX(-50%) scale(0.4); /* Scale up */
+    }
+    100% {
+        transform: translateX(-50%) scale(0.35); /* Scale down */
+    }
+}
+
+.pulsating-download {
+    animation: pulse-download 1.5s infinite;
+    transform-origin: center; /* Ensure the scaling is centered */
+}
+/* Bounce animation */
+@keyframes bounce {
+    0% {
+        transform: translate(-50%, 0) scale(0.35); /* Keep original X position and scale */
+    }
+    50% {
+        transform: translate(-50%, -10px) scale(0.35); /* Move up while keeping X position */
+    }
+    100% {
+        transform: translate(-50%, 0) scale(0.35); /* Return to original position while keeping X position */
+    }
+}
+
+/* Class to apply bounce animation */
+.bouncing {
+    animation: bounce 0.5s ease-in-out infinite; /* Loop infinitely */
+    will-change: transform; /* Hint to the browser to optimize for transform changes */
 }
